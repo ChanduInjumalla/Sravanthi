@@ -1,0 +1,6 @@
+# Private photos
+finalphotos/
+photos/
+
+# OS metadata
+.DS_Store
