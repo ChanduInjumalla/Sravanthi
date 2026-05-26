@@ -396,7 +396,7 @@ function nextQuestion() {
 const letterContents = [
   {
     title: "Happy B'day! 🎂",
-    body: "Happy Birthday Sravanthi! 🎉 I can't believe how fast these 3 years of our degree went by. I wanted to do something unique instead of just a WhatsApp text, so I built this little corner of the internet just for us."
+    body: "Happy Birthday Sravanthi! 🎉🎂 I still can't believe how fast those 3 chaotic years of our degree went by! 🎓 I wanted to do something super unique instead of just a boring WhatsApp text, so I built this little corner of the internet just for you. Hope it puts the biggest smile on your beautiful face today! Here's to another beautiful year of you being you! 🥰💖"
   },
   {
     title: "Our Friendship 💕",
@@ -404,7 +404,7 @@ const letterContents = [
   },
   {
     title: "Thank You 🌸",
-    body: "Thank you for dealing with my drama, listening to my endless rants, and always being there when I needed a hug. Here's to surviving degree college and to a lifetime of friendship ahead. Love you always, Aswini. 💖"
+    body: "Thank you for being my absolute rock! 🌸 For putting up with my drama, listening to my late-night rants, and always being there whenever I needed a warm hug. College would have been so boring without you. Here's to surviving degree college and to a lifetime of friendship ahead. Love you to the moon and back! 💖✨"
   }
 ];
 
