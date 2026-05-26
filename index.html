@@ -1,33 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Happy Birthday Sravanthi! 🎂</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Outfit:wght@200;300;400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <!-- Mobile Desktop Mode Warning -->
+  <div id="mobile-warning">
+    <div class="mobile-warning-box">
+      <h2>📱 Mobile Detected!</h2>
+      <p>For the best and most beautiful experience, please enable <strong>"Desktop Site"</strong> in your browser
+        settings before continuing!</p>
+    </div>
+  </div>
+
+  <!-- Global Aesthetic Bows -->
+  <img src="assets/pink_bow.png" alt="bow" class="aesthetic-bow top-left-bow">
+  <img src="assets/pink_bow.png" alt="bow" class="aesthetic-bow bottom-right-bow">
 
   <!-- Music Button -->
-  <button id="music-btn" title="Toggle Music">🎵</button>
+  <!-- Hidden music button to preserve automatic play logic without UI -->
+  <button id="music-btn" style="display: none;">🎵</button>
   <!-- Custom Modal for Wrong Answer -->
   <div id="wrong-modal" class="modal-overlay">
     <div class="modal-box">
       <h2 class="handwritten-title wrong-modal-title">Oops! ❌</h2>
       <p id="wrong-modal-msg" class="wrong-modal-msg">Wrong answer!</p>
-      
+
       <div class="punishment-box">
         <span class="punishment-title">Punishment:</span><br>
         <span class="punishment-text">You have to buy me a chocolate next time we meet! 🍫</span>
       </div>
-      
+
       <button class="scrapbook-btn wrong-btn wrong-modal-retry-btn" onclick="closeWrongModal()">Try Again 🥺</button>
     </div>
   </div>
 
+  <!-- Photo Viewer Modal -->
+  <div id="photo-viewer-modal" class="modal-overlay" onclick="closePhotoModal()">
+    <button class="close-viewer-btn" onclick="closePhotoModal()">✖</button>
+    <div class="photo-viewer-box" onclick="event.stopPropagation()">
+      <div id="viewer-frame" class="cute-frame">
+        <div id="viewer-crop-wrapper">
+          <img id="viewer-img" src="" alt="Full Photo">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <audio id="bg-music" loop>
-    <source src="https://cdn.pixabay.com/audio/2024/11/29/audio_d27ce26185.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Floating Hearts -->
@@ -37,12 +66,12 @@
   <div class="scene active" id="scene-pre-intro">
     <div class="watercolor-bg pink"></div>
     <div class="paper-card pre-intro-card">
-      <h2 class="pre-intro-title">Before entering the website, I want to ask you something...</h2>
-      <p class="pre-intro-subtitle">Will you continue?</p>
-      
+      <h2 class="pre-intro-title">Before entering... Will you continue or not?</h2>
+      <p class="pre-intro-subtitle">I dare you to touch that NO button... go ahead, try it 😏💀</p>
+
       <div class="pre-intro-buttons">
         <button class="scrapbook-btn correct-btn pre-intro-yes-btn" onclick="goToScene('scene-intro')">YES</button>
-        
+
         <div class="no-btn-wrapper">
           <button class="scrapbook-btn wrong-btn" id="no-btn">NO</button>
         </div>
@@ -62,7 +91,9 @@
       <div class="character-wrap intro-character" style="margin-bottom: 15px;">
         <img src="assets/girls-celebrate.png" alt="Aswini and Sravanthi" class="character-img bounce-gentle">
       </div>
-      <p style="font-family: var(--font-serif); margin-bottom: 20px; font-size: 1rem; color: #555; line-height: 1.5;">But before you see your gift, we need to play a little game to see how well you remember our 3 years in Degree college! 😉</p>
+      <p style="font-family: var(--font-serif); margin-bottom: 20px; font-size: 1rem; color: #555; line-height: 1.5;">
+        But before you see your gift, we need to play a little game to see how well you remember our 3 years in Degree
+        college! 😉</p>
       <button class="scrapbook-btn btn-pulse" onclick="startQuiz()">
         <span>Let's Play! 🎲</span>
       </button>
@@ -71,19 +102,25 @@
 
   <!-- ═══════════════════ SCENE 2: QUIZ ═══════════════════ -->
   <div class="scene" id="scene-quiz">
-    <div class="watercolor-bg pink"></div>
+    <div class="aesthetic-paper-bg"></div>
     <div class="paper-card quiz-card">
-      <div class="washi-tape" style="background-color: rgba(179, 157, 219, 0.6); transform: translateX(-50%) rotate(2deg);"></div>
+      <div class="washi-tape"
+        style="background-color: rgba(179, 157, 219, 0.6); transform: translateX(-50%) rotate(2deg);"></div>
       <h2 class="handwritten-title" id="quiz-title" style="margin-bottom: 15px; margin-top: 10px;">Question 1/3</h2>
       <div class="character-wrap" style="margin-bottom: 5px;">
         <img src="assets/girls-meet.png" id="quiz-img" alt="Memory" class="character-img">
       </div>
-      <p class="quiz-question" id="quiz-question">Where did we actually talk for the very first time in our first year?</p>
+      <p class="quiz-question" id="quiz-question">Where did we actually talk for the very first time in our first year?
+      </p>
       <div class="quiz-options" id="quiz-options"></div>
       <div id="quiz-feedback" class="quiz-feedback hidden">
-        <h3 id="feedback-title" class="handwritten-title" style="font-size: 1.5rem !important; margin-bottom: 2px !important; width: 100%; text-align: center;"></h3>
-        <p id="feedback-text" style="font-family: var(--font-serif); margin-top: 5px; margin-bottom: 10px; font-size: 0.95rem; color: #444; width: 100%; text-align: center;"></p>
-        <button class="scrapbook-btn" id="next-q-btn" onclick="nextQuestion()" style="margin: 0 auto; display: inline-block; padding: 6px 15px; font-size: 0.9rem;">
+        <h3 id="feedback-title" class="handwritten-title"
+          style="font-size: 1.5rem !important; margin-bottom: 2px !important; width: 100%; text-align: center;"></h3>
+        <p id="feedback-text"
+          style="font-family: var(--font-serif); margin-top: 5px; margin-bottom: 10px; font-size: 0.95rem; color: #444; width: 100%; text-align: center;">
+        </p>
+        <button class="scrapbook-btn" id="next-q-btn" onclick="nextQuestion()"
+          style="margin: 0 auto; display: inline-block; padding: 6px 15px; font-size: 0.9rem;">
           <span>Next ➡️</span>
         </button>
       </div>
@@ -99,7 +136,8 @@
       <div class="character-wrap" style="margin-bottom: 15px;">
         <img src="assets/girls-hug.png" alt="Hug" class="character-img bounce-gentle">
       </div>
-      <p class="section-subtitle" style="font-size: 1.1rem; color: #444;">Since you survived the quiz, here is your birthday surprise from your bestie, Aswini! 💕 Get ready for a trip down memory lane.</p>
+      <p class="section-subtitle" style="font-size: 1.1rem; color: #444;">Since you survived the quiz, here is your
+        birthday surprise from your bestie, Aswini! 💕 Get ready for a trip down memory lane.</p>
       <button class="scrapbook-btn btn-pulse" onclick="goToScene('scene-photos')">
         <span>Start Our Journey ➡️</span>
       </button>
@@ -110,59 +148,94 @@
   <div class="scene" id="scene-photos">
     <div class="watercolor-bg warm warm-toned-bg"></div>
     <div class="string-lights-overlay"></div>
-    
+
     <div class="photo-wall-content">
       <h2 class="section-title-handwritten photo-wall-title">Our Crazy Clicks</h2>
       <div class="chaotic-collage">
         <!-- Ropes Background -->
         <svg class="ropes-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d="M -5 12 Q 50 25 105 6" fill="none" stroke="#a1887f" stroke-width="0.35" stroke-dasharray="1.5 0.5"/>
-          <path d="M -5 32 Q 50 45 105 32" fill="none" stroke="#a1887f" stroke-width="0.35" stroke-dasharray="1.5 0.5"/>
-          <path d="M -5 55 Q 50 68 105 52" fill="none" stroke="#a1887f" stroke-width="0.35" stroke-dasharray="1.5 0.5"/>
-          <path d="M -5 75 Q 50 85 105 72" fill="none" stroke="#a1887f" stroke-width="0.35" stroke-dasharray="1.5 0.5"/>
+          <path d="M -5 12 Q 50 25 105 6" fill="none" stroke="#a1887f" stroke-width="0.35" stroke-dasharray="1.5 0.5" />
+          <path d="M -5 32 Q 50 45 105 32" fill="none" stroke="#a1887f" stroke-width="0.35"
+            stroke-dasharray="1.5 0.5" />
+          <path d="M -5 55 Q 50 68 105 52" fill="none" stroke="#a1887f" stroke-width="0.35"
+            stroke-dasharray="1.5 0.5" />
+          <path d="M -5 75 Q 50 85 105 72" fill="none" stroke="#a1887f" stroke-width="0.35"
+            stroke-dasharray="1.5 0.5" />
         </svg>
         <!-- Photo 1 -->
         <div class="scatter-photo photo-1">
           <div class="clip-wooden"></div>
-          <div class="color-frame frame-purple"><div class="frame-img"><img src="assets/girls-meet.png"></div><p class="photo-caption">Day 1</p></div>
+          <div class="color-frame frame-purple">
+            <div class="frame-img"><img src="photos/WhatsApp Image 2026-05-25 at 4.20.48 PM.jpeg" class="fit-photo">
+            </div>
+            <p class="photo-caption">Vibes ✨</p>
+          </div>
         </div>
         <!-- Photo 2 -->
         <div class="scatter-photo photo-2">
           <div class="clip-wooden"></div>
-          <div class="color-frame frame-blue"><div class="frame-img"><span style="font-size:3rem;">📸</span></div><p class="photo-caption">Add Photo</p></div>
+          <div class="color-frame frame-blue">
+            <div class="frame-img"><img src="photos/WhatsApp Image 2026-05-25 at 4.20.49 PM.jpeg"
+                class="fit-photo rotate-fix"></div>
+            <p class="photo-caption">Our World 💖</p>
+          </div>
         </div>
         <!-- Photo 3 -->
         <div class="scatter-photo photo-3">
           <div class="clip-wooden"></div>
-          <div class="color-frame frame-green"><div class="frame-img"><img src="assets/girls-laugh.png"></div><p class="photo-caption">Madness</p></div>
+          <div class="color-frame frame-green">
+            <div class="frame-img"><img src="photos/WhatsApp Image 2026-05-25 at 4.20.50 PM (1).jpeg" class="fit-photo">
+            </div>
+            <p class="photo-caption">Madness 🔥</p>
+          </div>
         </div>
         <!-- Photo 4 -->
         <div class="scatter-photo photo-4">
           <div class="clip-wooden"></div>
-          <div class="color-frame frame-yellow"><div class="frame-img"><span style="font-size:3rem;">📸</span></div><p class="photo-caption">Add Photo</p></div>
+          <div class="color-frame frame-yellow">
+            <div class="frame-img"><img src="photos/WhatsApp Image 2026-05-25 at 4.20.50 PM (2).jpeg"
+                class="fit-photo zoom-1"></div>
+            <p class="photo-caption">Me Hehe 😂</p>
+          </div>
         </div>
         <!-- Photo 5 -->
         <div class="scatter-photo photo-5">
           <div class="clip-wooden"></div>
-          <div class="color-frame frame-orange"><div class="frame-img"><span style="font-size:3rem;">📸</span></div><p class="photo-caption">Add Photo</p></div>
+          <div class="color-frame frame-orange">
+            <div class="frame-img"><img src="photos/WhatsApp Image 2026-05-25 at 4.20.50 PM (3).jpeg"
+                class="fit-photo rotate-fix pure-chaos-fix"></div>
+            <p class="photo-caption">Pure Chaos 🌪️</p>
+          </div>
         </div>
         <!-- Photo 6 -->
         <div class="scatter-photo photo-6">
           <div class="clip-wooden"></div>
-          <div class="color-frame frame-pink"><div class="frame-img"><img src="assets/girls-crying.png"></div><p class="photo-caption">Us 😭</p></div>
+          <div class="color-frame frame-pink">
+            <div class="frame-img"><img src="photos/WhatsApp Image 2026-05-25 at 4.20.50 PM.jpeg"
+                class="fit-photo rotate-fix"></div>
+            <p class="photo-caption">Crazy times 🤪</p>
+          </div>
         </div>
         <!-- Photo 7 -->
         <div class="scatter-photo photo-7">
           <div class="clip-wooden"></div>
-          <div class="color-frame frame-purple"><div class="frame-img"><span style="font-size:3rem;">📸</span></div><p class="photo-caption">Add Photo</p></div>
+          <div class="color-frame frame-purple">
+            <div class="frame-img"><img src="photos/WhatsApp Image 2026-05-25 at 4.20.51 PM (1).jpeg" class="fit-photo">
+            </div>
+            <p class="photo-caption">Unstoppable 💫</p>
+          </div>
         </div>
         <!-- Photo 8 -->
         <div class="scatter-photo photo-8">
           <div class="clip-wooden"></div>
-          <div class="color-frame frame-blue"><div class="frame-img"><span style="font-size:3rem;">📸</span></div><p class="photo-caption">Add Photo</p></div>
+          <div class="color-frame frame-blue">
+            <div class="frame-img"><img src="photos/WhatsApp Image 2026-05-25 at 4.20.51 PM.jpeg"
+                class="fit-photo zoom-1"></div>
+            <p class="photo-caption">Forever 💕</p>
+          </div>
         </div>
       </div>
- 
+
       <div class="next-section-container photo-wall-next">
         <button class="scrapbook-btn btn-pulse white-bg-btn" onclick="goToScene('scene-letters')">
           <span>Read My Letters ➡️</span>
@@ -177,26 +250,35 @@
     <div class="letters-content">
       <h2 class="section-title-handwritten">Letters From Me</h2>
       <p class="section-subtitle">Words I couldn't say normally without laughing...</p>
-      
+
       <div class="letters-grid">
         <div class="envelope" onclick="openLetter(0)">
-          <div class="envelope-body"><div class="envelope-flap"></div><div class="envelope-label">Happy B'day! 🎂</div></div>
+          <div class="envelope-body">
+            <div class="envelope-flap"></div>
+            <div class="envelope-label">Happy B'day! 🎂</div>
+          </div>
         </div>
         <div class="envelope" onclick="openLetter(1)">
-          <div class="envelope-body"><div class="envelope-flap"></div><div class="envelope-label">Our Friendship 💕</div></div>
+          <div class="envelope-body">
+            <div class="envelope-flap"></div>
+            <div class="envelope-label">Our Friendship 💕</div>
+          </div>
         </div>
         <div class="envelope" onclick="openLetter(2)">
-          <div class="envelope-body"><div class="envelope-flap"></div><div class="envelope-label">Thank You 🌸</div></div>
+          <div class="envelope-body">
+            <div class="envelope-flap"></div>
+            <div class="envelope-label">Thank You 🌸</div>
+          </div>
         </div>
       </div>
-      
+
       <div class="character-wrap" style="margin-top: 40px; margin-bottom: 20px;">
         <img src="assets/girls-hug.png" alt="hug" class="character-img">
       </div>
 
       <div class="next-section-container">
-        <button class="scrapbook-btn btn-pulse" onclick="goToScene('scene-story')">
-          <span>Our Story ➡️</span>
+        <button class="scrapbook-btn btn-pulse" onclick="goToScene('scene-videos')">
+          <span>Our Cinematic Moments ➡️</span>
         </button>
       </div>
     </div>
@@ -212,129 +294,104 @@
     </div>
   </div>
 
-  <!-- ═══════════════════ SCENE 6: OUR STORY ═══════════════════ -->
-  <div class="scene" id="scene-story">
-    <div class="watercolor-bg pink"></div>
-    
-    <div class="story-container">
-      <div class="washi-tape" style="background-color: rgba(244, 143, 177, 0.5); transform: translateX(-50%) rotate(1deg);"></div>
-      <h2 class="handwritten-title" style="margin-top: 15px;">Through Thick & Thin</h2>
-      <p class="section-subtitle" style="margin-bottom: 15px;">Swipe through our journey</p>
-      
-      <div class="story-slide active" id="slide-0">
-        <div class="story-img-wrap"><img src="assets/girls-study.png"></div>
-        <div class="story-text">
-          <h3>The Panic Sessions 📚</h3>
-          <p>Remember when we realized the exam was tomorrow and we hadn't touched a single book? We copied assignments and somehow survived every semester. I wouldn't have passed without you!</p>
-        </div>
-      </div>
-
-      <div class="story-slide" id="slide-1">
-        <div class="story-img-wrap"><img src="assets/girls-food.png"></div>
-        <div class="story-text">
-          <h3>Food Partners 🍜</h3>
-          <p>Our true bond was forged over college canteen food. We might fight over the last piece, but we never eat without each other. You know exactly what my weird cravings are!</p>
-        </div>
-      </div>
-
-      <div class="story-slide" id="slide-2">
-        <div class="story-img-wrap"><img src="assets/girls-shopping.png"></div>
-        <div class="story-text">
-          <h3>Shopping Sprees 🛍️</h3>
-          <p>We say we're only going to "window shop" and end up buying matching hair clips and cute clothes we probably don't need. Matching with my bestie is a necessity!</p>
-        </div>
-      </div>
-
-      <div class="story-slide" id="slide-3">
-        <div class="story-img-wrap"><img src="assets/girls-crying.png"></div>
-        <div class="story-text">
-          <h3>Emotional Messes 😭</h3>
-          <p>From crying over silly fights to being overly emotional during movies, we've seen each other at our absolute worst. And the best part? We just hold each other and cry.</p>
-        </div>
-      </div>
-
-      <div class="story-slide" id="slide-4">
-        <div class="story-img-wrap"><img src="assets/girls-secret.png"></div>
-        <div class="story-text">
-          <h3>Inside Jokes & Secrets 🤫</h3>
-          <p>We have an entire language made of just eye contact. From whispering about that one annoying person in class to knowing all my deepest secrets, I trust you more than anyone.</p>
-        </div>
-      </div>
-
-      <div class="story-controls">
-        <button class="scrapbook-btn" style="padding: 8px 18px; border-radius: 50%; margin:0;" onclick="changeStory(-1)">←</button>
-        <div class="story-dots">
-          <div class="story-dot active" id="dot-0"></div>
-          <div class="story-dot" id="dot-1"></div>
-          <div class="story-dot" id="dot-2"></div>
-          <div class="story-dot" id="dot-3"></div>
-          <div class="story-dot" id="dot-4"></div>
-        </div>
-        <button class="scrapbook-btn" style="padding: 8px 18px; border-radius: 50%; margin:0;" onclick="changeStory(1)">→</button>
-      </div>
-    </div>
-
-    <div class="next-section-container" style="max-width: 500px;">
-      <button class="scrapbook-btn btn-pulse" onclick="goToScene('scene-videos')">
-        <span>Our Cinematic Moments ➡️</span>
-      </button>
-    </div>
-  </div>
-
   <!-- ═══════════════════ SCENE 9: VIDEOS ═══════════════════ -->
-  <div class="scene cinematic-scene" id="scene-videos">
-    <div class="cinematic-bg"></div>
-    <div style="max-width: 600px; width: 100%; text-align: center; z-index: 10; position: relative;">
-      <h2 class="section-title-handwritten" style="color: #fdfefe; text-shadow: 0 0 15px rgba(255,255,255,0.5);">Our Reel Dump</h2>
-      <p class="section-subtitle" style="color: #ddd;">The moments caught on camera...</p>
-      
-      <div class="cinematic-video-frame">
-        <div class="film-strip top"></div>
-        <div class="video-content-placeholder">
-          <span style="font-size: 3.5rem; display: block; margin-bottom: 10px; animation: float 3s ease-in-out infinite;">🎬</span>
-          <h3 style="font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 10px; color: #fff;">Cinematic Video Memories</h3>
-          <p style="font-family: var(--font-serif); color: #ccc; line-height: 1.5;">When you get your actual videos, replace this placeholder block with your video files!</p>
+  <div class="scene" id="scene-videos">
+    <div class="aesthetic-paper-bg"></div>
+    <div
+      style="max-width: 800px; width: 100%; text-align: center; z-index: 10; position: relative; padding-top: 20px; padding-left: 20px; padding-right: 20px; transform: scale(1.15);">
+      <h2 class="section-title-handwritten" style="color: #333;">Our Reel Dump</h2>
+      <p class="section-subtitle" style="color: #666;">The moments caught on camera...</p>
+
+      <div class="aesthetic-video-frame"
+        style="margin: 30px auto; background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); padding: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);">
+        <div class="video-content-placeholder"
+          style="background: rgba(253,245,250,0.6); border: 2px dashed #f0cce0; border-radius: 8px; padding: 50px 20px; margin: 0;">
+          <span
+            style="font-size: 3.5rem; display: block; margin-bottom: 15px; animation: float 3s ease-in-out infinite;">🎥</span>
+          <h3 style="font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 10px; color: #444;">Video
+            Memories</h3>
+          <p style="font-family: var(--font-serif); color: #777; line-height: 1.6; font-size: 0.95rem; margin: 0;">When
+            you get your actual videos, replace this aesthetic block with your video files!</p>
         </div>
-        <div class="film-strip bottom"></div>
       </div>
 
       <div class="next-section-container" style="margin-top: 40px;">
-        <button class="scrapbook-btn btn-pulse" onclick="goToScene('scene-wishing')" style="background: rgba(255, 255, 255, 0.9);">
+        <button class="scrapbook-btn elegant-back-btn btn-pulse" onclick="goToScene('scene-wishing')">
           <span>The Main Event ➡️</span>
         </button>
       </div>
-      
+
     </div>
   </div>
 
-  <!-- ═══════════════════ SCENE 10: WISHING (CLIMAX) ═══════════════════ -->
+  <!-- ═══════════════════ SCENE 10: WISHING (CLIMAX - PIN AESTHETIC) ═══════════════════ -->
   <div class="scene" id="scene-wishing">
-    <div class="magical-bg"></div>
+    <div class="aesthetic-paper-bg"></div>
     <div class="fireworks-container" id="fireworks-container"></div>
-    
-    <div class="wishing-content">
-      <div class="cake-container bounce-gentle">
-        <div class="cake">
-          <div class="candle">
-            <div class="flame"></div>
+
+    <!-- Aesthetic Floral Background Elements -->
+    <div class="floral-background">
+      <span class="floral-element flower-2">🌺</span>
+      <span class="floral-element flower-3">👻</span>
+      <span class="floral-element flower-4">🌸</span>
+      <span class="floral-element flower-5">🌹</span>
+      <span class="floral-element flower-6">🌺</span>
+      <span class="floral-element flower-7">👻</span>
+    </div>
+
+    <!-- Small Scattered Bows (Using CSS background for texture, or multiple img elements) -->
+    <div class="scattered-bows-layer"></div>
+
+    <div class="wishing-content-aesthetic">
+      <!-- Polaroid Frames Collage -->
+      <div class="polaroid-collage">
+        <!-- Left Photo -->
+        <div class="polaroid-wrapper polaroid-left">
+          <div class="polaroid-frame">
+            <div class="polaroid-photo-area frame-img"
+              style="padding: 0; background: none; border: none; overflow: hidden;">
+              <img src="finalphotos/WhatsApp Image 2026-05-25 at 5.04.36 PM.jpeg" class="fit-photo"
+                style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
           </div>
-          <div class="icing"></div>
-          <div class="sponge"></div>
+        </div>
+
+        <!-- Right Photo -->
+        <div class="polaroid-wrapper polaroid-right">
+          <div class="polaroid-frame">
+            <div class="polaroid-photo-area frame-img"
+              style="padding: 0; background: none; border: none; overflow: hidden;">
+              <img src="finalphotos/WhatsApp Image 2026-05-25 at 5.04.37 PM (1).jpeg" class="fit-photo"
+                style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Main Photo -->
+        <div class="polaroid-wrapper polaroid-center">
+          <div class="polaroid-frame">
+            <div class="polaroid-photo-area frame-img"
+              style="padding: 0; background: none; border: none; overflow: hidden;">
+              <img src="finalphotos/WhatsApp Image 2026-05-25 at 5.04.37 PM.jpeg" class="fit-photo"
+                style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
         </div>
       </div>
-      
-      <h1 class="grand-birthday-title glow-text">Happy Birthday Sravanthi!</h1>
-      <div class="emotional-message">
-        <p>Another year older, but let's be honest... we're still those same crazy girls from first year.</p>
-        <p>I hope your day is as beautiful, chaotic, and wonderful as you are. Thank you for being my unbiological sister.</p>
-        <p class="highlight">I love you to the moon and back! 🌙💖</p>
+
+      <!-- Elegant Typography Message -->
+      <div class="elegant-message">
+        <h2 class="wishing-title wishing-anim-1">WISHING YOU A VERY HAPPY BIRTHDAY ❤️</h2>
+        <div class="wishing-divider wishing-anim-2"></div>
+        <div class="wishing-sub-messages">
+          <p class="wishing-sub-line wishing-anim-3">May your life be full of love and peace.</p>
+          <p class="wishing-sub-line wishing-anim-4">May each day bring something beautiful.</p>
+          <p class="wishing-sub-line wishing-anim-5">Stay strong, stay kind, stay happy.</p>
+        </div>
+        <div class="wishing-footer wishing-anim-6">BEST WISHES FOR THE YEAR AHEAD 🎉</div>
       </div>
 
-      <div class="character-wrap" style="margin-top: 30px; margin-bottom: 20px;">
-        <img src="assets/girls-celebrate.png" alt="Aswini and Sravanthi Celebrating" class="character-img" style="filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));">
-      </div>
-      
-      <button class="scrapbook-btn" onclick="goToScene('scene-intro')" style="margin-top: 20px;">
+      <button class="scrapbook-btn elegant-back-btn" onclick="goToScene('scene-intro')">
         <span>🔄 Back to Start</span>
       </button>
     </div>
@@ -342,4 +399,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
