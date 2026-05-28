@@ -2,5 +2,7 @@
 finalphotos/
 photos/
 
+# Screen recordings (too large)
+
 # OS metadata
 .DS_Store

@@ -141,6 +141,17 @@ function goToScene(sceneId) {
           const container = document.getElementById('fireworks-container');
           if (container) container.innerHTML = '';
         }
+
+        // Auto-play birthday video when video section appears
+        const birthdayVideo = document.getElementById('birthday-video');
+        if (birthdayVideo) {
+          if (sceneId === 'scene-videos') {
+            birthdayVideo.currentTime = 0;
+            birthdayVideo.play().catch(() => {});
+          } else {
+            birthdayVideo.pause();
+          }
+        }
       }
     }, 150); // slight delay to allow fade out
   }, 100); // allow click animation to play

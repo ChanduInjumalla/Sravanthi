@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story — Happy Birthday Sravanthi 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* ═══════════ SCENE CONTAINER ═══════════ */
+    .anim-scene {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .anim-scene.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 10;
+    }
+
+    .anim-scene.exiting {
+      opacity: 0;
+      transform: scale(0.95);
+      z-index: 5;
+    }
+
+    /* ═══════════ BACKGROUND IMAGES ═══════════ */
+    .scene-bg {
+      position: absolute;
+      inset: 0;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Ken Burns slow zoom effect */
+    .ken-burns {
+      animation: kenBurns 8s ease-in-out forwards;
+    }
+
+    @keyframes kenBurns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.12); }
+    }
+
+    .ken-burns-out {
+      animation: kenBurnsOut 8s ease-in-out forwards;
+    }
+
+    @keyframes kenBurnsOut {
+      0% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* ═══════════ OVERLAYS ═══════════ */
+    .scene-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    .gradient-bottom {
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 40%, transparent 100%);
+    }
+
+    .gradient-full {
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+    }
+
+    .warm-tint {
+      background: rgba(255, 165, 90, 0.08);
+      mix-blend-mode: multiply;
+    }
+
+    /* ═══════════ TEXT STYLES ═══════════ */
+    .scene-text {
+      position: absolute;
+      z-index: 20;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.5), 0 0 30px rgba(0,0,0,0.3);
+    }
+
+    .text-date {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #ffe4c4;
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+
+    .text-caption {
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      font-style: italic;
+      color: #fff;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 700px;
+      line-height: 1.5;
+      opacity: 0;
+    }
+
+    .text-heading {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #ffd4e5;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      opacity: 0;
+      letter-spacing: 1px;
+    }
+
+    .text-sub {
+      font-family: 'Lora', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #ffe8d6;
+      top: 62%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      opacity: 0;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .text-big-quote {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      line-height: 1.4;
+      opacity: 0;
+    }
+
+    .text-final-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #ffd4e5;
+      top: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      opacity: 0;
+      text-shadow: 0 3px 20px rgba(255, 105, 180, 0.4), 0 0 40px rgba(255, 182, 193, 0.3);
+    }
+
+    .text-final-sub {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #ffe4c4;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 85%;
+      opacity: 0;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ═══════════ TEXT ANIMATIONS ═══════════ */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateX(-50%) translateY(25px); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @keyframes fadeInCenter {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes fadeInCenterUp {
+      0% { opacity: 0; transform: translate(-50%, -40%) scale(0.95); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { text-shadow: 0 3px 20px rgba(255, 105, 180, 0.4), 0 0 40px rgba(255, 182, 193, 0.3); }
+      50% { text-shadow: 0 3px 30px rgba(255, 105, 180, 0.7), 0 0 60px rgba(255, 182, 193, 0.5), 0 0 80px rgba(255, 192, 203, 0.3); }
+    }
+
+    .animate-fadeInUp {
+      animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    .animate-fadeInCenter {
+      animation: fadeInCenter 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    .animate-fadeInCenterUp {
+      animation: fadeInCenterUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    .animate-glow {
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    /* ═══════════ PARTICLES ═══════════ */
+    #particles-container {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    @keyframes floatParticle {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      20% { opacity: 1; }
+      80% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(-100vh) scale(1.2); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .sparkle-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255,255,255,0.8);
+      animation: sparkle 1.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 55;
+    }
+
+    /* ═══════════ LETTERBOX CINEMATIC BARS ═══════════ */
+    .letterbox-top, .letterbox-bottom {
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #000;
+      z-index: 100;
+    }
+    .letterbox-top { top: 0; }
+    .letterbox-bottom { bottom: 0; }
+
+    /* ═══════════ PROGRESS BAR ═══════════ */
+    .progress-bar {
+      position: fixed;
+      bottom: 60px;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff69b4, #ffd700, #ff69b4);
+      z-index: 200;
+      width: 0%;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+    }
+
+    /* ═══════════ CONFETTI FOR FINALE ═══════════ */
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 12px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 60;
+    }
+
+    @keyframes confettiFall {
+      0% { opacity: 1; transform: translateY(-20px) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    }
+
+    /* ═══════════ VIGNETTE ═══════════ */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      box-shadow: inset 0 0 120px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cinematic Letterbox -->
+  <div class="letterbox-top"></div>
+  <div class="letterbox-bottom"></div>
+
+  <!-- Vignette overlay -->
+  <div class="vignette"></div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <!-- Particles container -->
+  <div id="particles-container"></div>
+
+  <!-- ═══════════ SCENE 1: First Meeting ═══════════ -->
+  <div class="anim-scene" id="scene-1">
+    <div class="scene-bg ken-burns" style="background-image: url('animation-assets/scene1.png');"></div>
+    <div class="scene-overlay gradient-bottom"></div>
+    <div class="scene-overlay warm-tint"></div>
+    <div class="scene-text text-caption" id="s1-caption">The day two strangers became the start of something beautiful…</div>
+  </div>
+
+  <!-- ═══════════ SCENE 2: Becoming Friends ═══════════ -->
+  <div class="anim-scene" id="scene-2">
+    <div class="scene-bg ken-burns-out" style="background-image: url('animation-assets/scene2.png');"></div>
+    <div class="scene-overlay gradient-bottom"></div>
+    <div class="scene-text text-caption" id="s2-caption" style="bottom: 8%;">Sharing notes, sharing laughs, sharing chocolates… sharing life. 💕</div>
+  </div>
+
+  <!-- ═══════════ SCENE 3: Campus Golden Hour ═══════════ -->
+  <div class="anim-scene" id="scene-3">
+    <div class="scene-bg ken-burns" style="background-image: url('animation-assets/scene3.png');"></div>
+    <div class="scene-overlay gradient-full"></div>
+    <div class="scene-text text-big-quote" id="s3-quote">Three years… countless memories.</div>
+  </div>
+
+  <!-- ═══════════ SCENE 4: Outside Adventures ═══════════ -->
+  <div class="anim-scene" id="scene-4">
+    <div class="scene-bg ken-burns-out" style="background-image: url('animation-assets/scene4.png');"></div>
+    <div class="scene-overlay gradient-bottom"></div>
+    <div class="scene-text text-caption" id="s4-caption" style="bottom: 8%;">Selfies, street food, city lights… every moment was magic ✨</div>
+  </div>
+
+  <!-- ═══════════ SCENE 5: Emotional Bond ═══════════ -->
+  <div class="anim-scene" id="scene-5">
+    <div class="scene-bg ken-burns" style="background-image: url('animation-assets/scene5.png');"></div>
+    <div class="scene-overlay gradient-full"></div>
+    <div class="scene-overlay warm-tint"></div>
+    <div class="scene-text text-caption" id="s5-caption" style="font-size: 1.5rem; bottom: 10%;">Some friendships go beyond words… ours is one of them. 🤍</div>
+  </div>
+
+  <!-- ═══════════ SCENE 6: Time Passing ═══════════ -->
+  <div class="anim-scene" id="scene-6">
+    <div class="scene-bg ken-burns-out" style="background-image: url('animation-assets/scene6.png');"></div>
+    <div class="scene-overlay gradient-full"></div>
+    <div class="scene-text text-big-quote" id="s6-quote" style="font-size: 2.5rem;">No distance can erase real friendship.</div>
+  </div>
+
+  <!-- ═══════════ SCENE 7: Birthday Finale ═══════════ -->
+  <div class="anim-scene" id="scene-7">
+    <div class="scene-bg ken-burns" style="background-image: url('animation-assets/scene7.png');"></div>
+    <div class="scene-overlay gradient-bottom"></div>
+    <div class="scene-text text-final-title" id="s7-title">Happy Birthday Sravanthi 💖</div>
+    <div class="scene-text text-final-sub" id="s7-sub">Thank you for being my favorite memory.</div>
+  </div>
+
+  <script>
+    // ═══════════ TIMELINE CONTROLLER ═══════════
+    const TOTAL_DURATION = 30000; // 30 seconds in ms
+    const startTime = Date.now();
+
+    const timeline = [
+      // [startMs, endMs, sceneId, textAnimations]
+      { start: 0,     end: 4500,  scene: 'scene-1', texts: [
+        { id: 's1-caption', delay: 800, anim: 'animate-fadeInUp' }
+      ]},
+      { start: 4500,  end: 8500,  scene: 'scene-2', texts: [
+        { id: 's2-caption', delay: 800,  anim: 'animate-fadeInUp' }
+      ]},
+      { start: 8500,  end: 13000, scene: 'scene-3', texts: [
+        { id: 's3-quote',   delay: 600,  anim: 'animate-fadeInCenterUp' }
+      ]},
+      { start: 13000, end: 18000, scene: 'scene-4', texts: [
+        { id: 's4-caption', delay: 800,  anim: 'animate-fadeInUp' }
+      ]},
+      { start: 18000, end: 23000, scene: 'scene-5', texts: [
+        { id: 's5-caption', delay: 1000, anim: 'animate-fadeInUp' }
+      ]},
+      { start: 23000, end: 27000, scene: 'scene-6', texts: [
+        { id: 's6-quote',   delay: 500,  anim: 'animate-fadeInCenterUp' }
+      ]},
+      { start: 27000, end: 30000, scene: 'scene-7', texts: [
+        { id: 's7-title',   delay: 300,  anim: 'animate-fadeInUp animate-glow' },
+        { id: 's7-sub',     delay: 1200, anim: 'animate-fadeInUp' }
+      ]}
+    ];
+
+    let currentSceneIndex = -1;
+
+    function updateTimeline() {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / TOTAL_DURATION, 1);
+
+      // Update progress bar
+      document.getElementById('progress-bar').style.width = (progress * 100) + '%';
+
+      // Find current scene
+      for (let i = 0; i < timeline.length; i++) {
+        const t = timeline[i];
+        if (elapsed >= t.start && elapsed < t.end && currentSceneIndex !== i) {
+          switchToScene(i);
+          break;
+        }
+      }
+
+      if (elapsed < TOTAL_DURATION) {
+        requestAnimationFrame(updateTimeline);
+      }
+    }
+
+    function switchToScene(index) {
+      const prevIndex = currentSceneIndex;
+      currentSceneIndex = index;
+
+      // Exit previous scene
+      if (prevIndex >= 0) {
+        const prevScene = document.getElementById(timeline[prevIndex].scene);
+        prevScene.classList.remove('active');
+        prevScene.classList.add('exiting');
+
+        // Clean up old text animations
+        timeline[prevIndex].texts.forEach(t => {
+          const el = document.getElementById(t.id);
+          el.className = 'scene-text ' + el.dataset.baseClass;
+          el.style.opacity = '0';
+        });
+
+        setTimeout(() => {
+          prevScene.classList.remove('exiting');
+        }, 1200);
+      }
+
+      // Enter new scene
+      const newScene = document.getElementById(timeline[index].scene);
+      newScene.classList.add('active');
+
+      // Animate texts with delays
+      timeline[index].texts.forEach(t => {
+        setTimeout(() => {
+          const el = document.getElementById(t.id);
+          t.anim.split(' ').forEach(cls => el.classList.add(cls));
+        }, t.delay);
+      });
+
+      // Special effects for finale
+      if (index === 6) {
+        startConfetti();
+        burstSparkles();
+      }
+    }
+
+    // ═══════════ PARTICLE SYSTEM ═══════════
+    const particlesContainer = document.getElementById('particles-container');
+
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+
+      const size = 3 + Math.random() * 6;
+      const x = Math.random() * 100;
+      const duration = 6 + Math.random() * 6;
+      const delay = Math.random() * 3;
+
+      const colors = [
+        'rgba(255, 182, 193, 0.7)',  // pink
+        'rgba(255, 215, 0, 0.6)',    // gold
+        'rgba(255, 255, 255, 0.5)',  // white
+        'rgba(255, 165, 0, 0.5)',    // orange
+        'rgba(255, 105, 180, 0.6)',  // hot pink
+      ];
+
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = x + 'vw';
+      particle.style.bottom = '-10px';
+      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.boxShadow = `0 0 ${size * 2}px ${particle.style.background}`;
+      particle.style.animation = `floatParticle ${duration}s ease-in-out ${delay}s forwards`;
+
+      particlesContainer.appendChild(particle);
+
+      setTimeout(() => particle.remove(), (duration + delay) * 1000);
+    }
+
+    // Continuous particle stream
+    setInterval(createParticle, 350);
+
+    // ═══════════ SPARKLE DOTS ═══════════
+    function burstSparkles() {
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          const dot = document.createElement('div');
+          dot.className = 'sparkle-dot';
+          dot.style.left = Math.random() * 100 + 'vw';
+          dot.style.top = Math.random() * 100 + 'vh';
+          dot.style.animationDelay = Math.random() * 1 + 's';
+          dot.style.animationDuration = (1 + Math.random() * 1.5) + 's';
+          particlesContainer.appendChild(dot);
+          setTimeout(() => dot.remove(), 4000);
+        }, i * 80);
+      }
+    }
+
+    // ═══════════ CONFETTI FOR FINALE ═══════════
+    function startConfetti() {
+      const confettiColors = ['#ff69b4', '#ffd700', '#ff1493', '#00ffff', '#ff6347', '#9b59b6', '#fff'];
+
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.left = Math.random() * 100 + 'vw';
+          piece.style.top = '60px';
+          piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+          piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+          piece.style.width = (5 + Math.random() * 8) + 'px';
+          piece.style.height = (8 + Math.random() * 10) + 'px';
+          piece.style.animation = `confettiFall ${2 + Math.random() * 3}s ease-in forwards`;
+          particlesContainer.appendChild(piece);
+          setTimeout(() => piece.remove(), 5000);
+        }, i * 60);
+      }
+    }
+
+    // ═══════════ INITIALIZE ═══════════
+    // Save base classes for text elements
+    document.querySelectorAll('.scene-text').forEach(el => {
+      el.dataset.baseClass = el.className.replace('scene-text ', '');
+    });
+
+    // Start the timeline!
+    requestAnimationFrame(updateTimeline);
+  </script>
+</body>
+</html>
